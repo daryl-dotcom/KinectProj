@@ -461,6 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d1b11f699f9a74ca85e263655749cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GladiatorSceneManager
+  vrCamera: {fileID: 330585545}
 --- !u!4 &1684169193
 Transform:
   m_ObjectHideFlags: 0
