@@ -7,7 +7,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     void Start()
     {
         Debug.Log("--- PHOTON: Connecting to Server... ---");
-        PhotonNetwork.AutomaticallySyncScene = true;
+        // PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
     }
 
