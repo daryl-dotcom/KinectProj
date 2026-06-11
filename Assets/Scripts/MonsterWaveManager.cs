@@ -17,10 +17,7 @@ public class MonsterWaveManager : MonoBehaviourPun
 
     void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
             StartCoroutine(RunWaves());
-        }
     }
 
     IEnumerator RunWaves()

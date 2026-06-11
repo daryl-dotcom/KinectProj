@@ -37,9 +37,7 @@ public class MonsterAI : MonoBehaviourPun
 
     void Update()
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
-
+        
         if (isDead || isStunned)
             return;
 
