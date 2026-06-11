@@ -508,7 +508,7 @@ MonoBehaviour:
   smoothing: 1
   UseBoneOrientationsFilter: 0
   UseClippedLegsFilter: 0
-  UseBoneOrientationsConstraint: 1
+  UseBoneOrientationsConstraint: 0
   UseSelfIntersectionConstraint: 0
   Player1Avatars: []
   Player2Avatars: []
