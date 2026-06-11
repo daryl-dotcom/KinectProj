@@ -9652,11 +9652,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 746822539133509613}
-  - component: {fileID: 5465947132539266045}
   - component: {fileID: 1609816962881192880}
   - component: {fileID: 4767390844226712233}
   - component: {fileID: 6940623630329241810}
   - component: {fileID: 4518014597815688019}
+  - component: {fileID: 3806672505328459624}
+  - component: {fileID: -7292110743570159885}
+  - component: {fileID: -5739604337399511728}
   m_Layer: 0
   m_Name: Troll
   m_TagString: Untagged
@@ -9687,28 +9689,6 @@ Transform:
   - {fileID: 625153674569073924}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5465947132539266045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688660093266772141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df531d55e21b9cb40a9a94e88d00b0a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterAI
-  gladiatorTag: Gladiator
-  moveSpeed: 2.5
-  rotationSpeed: 6
-  attackDistance: 1.8
-  attackCooldown: 1.5
-  idleAnimation: {fileID: 7400000, guid: e5435d9171c843340be4ef907331af82, type: 2}
-  walkAnimation: {fileID: 7400000, guid: 884609fd3666a0c41a93828ebcad2473, type: 2}
-  attackAnimation: {fileID: 7400000, guid: b2225efc3034ded45b5696fda2d17e72, type: 2}
-  damageAnimation: {fileID: 7400000, guid: b18c849c68979bf42b45595a4ed97a73, type: 2}
-  deathAnimation: {fileID: 7400000, guid: c4a4521005b9bf040aaf2e7e14cca926, type: 2}
 --- !u!111 &1609816962881192880
 Animation:
   m_ObjectHideFlags: 0
@@ -9775,7 +9755,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
@@ -9793,6 +9773,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AddRunSpeed: 0.6
   AddWalkSpeed: 0.6
+--- !u!114 &3806672505328459624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688660093266772141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: -7292110743570159885}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-7292110743570159885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688660093266772141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &-5739604337399511728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688660093266772141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df531d55e21b9cb40a9a94e88d00b0a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterAI
+  gladiatorTag: Gladiator
+  moveSpeed: 2.5
+  rotationSpeed: 6
+  attackDistance: 1.8
+  attackCooldown: 1.5
 --- !u!1 &1713801576790772447
 GameObject:
   m_ObjectHideFlags: 0
