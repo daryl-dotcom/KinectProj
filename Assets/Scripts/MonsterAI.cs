@@ -14,31 +14,22 @@ public class MonsterAI : MonoBehaviourPun
     [Header("Attack")]
     public float attackCooldown = 1.5f;
 
-    [Header("Animation Clips")]
-    public AnimationClip idleAnimation;
-    public AnimationClip walkAnimation;
-    public AnimationClip attackAnimation;
-    public AnimationClip damageAnimation;
-    public AnimationClip deathAnimation;
-
     private Transform target;
-    private Animation monsterAnimation;
+    private Animator monsterAnimator; // FIXED: Using modern Animator system
     private float nextAttackTime;
     private bool isDead;
     private bool isStunned;
 
     void Start()
     {
-        monsterAnimation = GetComponent<Animation>();
+        monsterAnimator = GetComponent<Animator>();
         FindGladiator();
-
-        PlayAnimation(idleAnimation);
     }
 
     void Update()
     {
-        if (!PhotonNetwork.IsMasterClient)
-            return;
+        // Only let the Master Client calculate AI movement to prevent network stuttering
+        if (!PhotonNetwork.IsMasterClient) return;
 
         if (isDead || isStunned)
             return;
@@ -63,7 +54,14 @@ public class MonsterAI : MonoBehaviourPun
 
     void FindGladiator()
     {
+        // Try to find via Tag
         GameObject gladiator = GameObject.FindGameObjectWithTag(gladiatorTag);
+
+        // Fallback: search by name clone if tag wasn't set correctly in Inspector
+        if (gladiator == null)
+        {
+            gladiator = GameObject.Find("Net_Gladiator(Clone)");
+        }
 
         if (gladiator != null)
         {
@@ -88,71 +86,66 @@ public class MonsterAI : MonoBehaviourPun
 
         transform.position += transform.forward * moveSpeed * Time.deltaTime;
 
-        PlayAnimation(walkAnimation);
+        // FIXED: Safely triggers standard walking states if parameters exist
+        if (monsterAnimator != null)
+        {
+            monsterAnimator.SetBool("IsWalking", true);
+            monsterAnimator.SetBool("Moving", true); // covering common naming asset packs
+        }
     }
 
     void AttackTarget()
     {
         transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
 
-        if (Time.time < nextAttackTime)
+        if (monsterAnimator != null)
         {
-            PlayAnimation(idleAnimation);
-            return;
+            monsterAnimator.SetBool("IsWalking", false);
+            monsterAnimator.SetBool("Moving", false);
         }
 
-        nextAttackTime = Time.time + attackCooldown;
-        PlayAnimation(attackAnimation);
+        if (Time.time < nextAttackTime)
+            return;
 
-        // Later: call gladiator health damage here.
-        // Example:
-        // target.GetComponent<GladiatorHealth>()?.TakeDamage(10);
+        nextAttackTime = Time.time + attackCooldown;
+        
+        if (monsterAnimator != null)
+        {
+            monsterAnimator.SetTrigger("Attack");
+        }
+
+        Debug.LogWarning("--- CHOP! Monster hits Gladiator Player 2! ---");
     }
 
     public void TakeDamage(int damage)
     {
-        if (isDead)
-            return;
-
-        PlayAnimation(damageAnimation);
-
-        // Later: subtract health here.
-        // currentHealth -= damage;
-        // if (currentHealth <= 0) Die();
+        if (isDead) return;
+        if (monsterAnimator != null) monsterAnimator.SetTrigger("Hit");
     }
 
     public void Stun(float duration)
     {
-        if (isDead)
-            return;
-
+        if (isDead) return;
         photonView.RPC(nameof(RPC_Stun), RpcTarget.All, duration);
     }
 
     [PunRPC]
     void RPC_Stun(float duration)
     {
-        if (isDead)
-            return;
-
+        if (isDead) return;
         StartCoroutine(StunRoutine(duration));
     }
 
     System.Collections.IEnumerator StunRoutine(float duration)
     {
         isStunned = true;
-        PlayAnimation(idleAnimation);
-
         yield return new WaitForSeconds(duration);
-
         isStunned = false;
     }
 
     public void Die()
     {
-        if (isDead)
-            return;
-
+        if (isDead) return;
         photonView.RPC(nameof(RPC_Die), RpcTarget.All);
     }
 
@@ -160,27 +153,9 @@ public class MonsterAI : MonoBehaviourPun
     void RPC_Die()
     {
         isDead = true;
-        PlayAnimation(deathAnimation);
+        if (monsterAnimator != null) monsterAnimator.SetTrigger("Die");
 
         Collider monsterCollider = GetComponent<Collider>();
-        if (monsterCollider != null)
-            monsterCollider.enabled = false;
-    }
-
-    void PlayAnimation(AnimationClip animationClip)
-    {
-        if (monsterAnimation == null)
-            return;
-
-        if (animationClip == null)
-            return;
-
-        if (monsterAnimation.GetClip(animationClip.name) == null)
-            return;
-
-        if (!monsterAnimation.IsPlaying(animationClip.name))
-        {
-            monsterAnimation.CrossFade(animationClip.name, 0.2f);
-        }
+        if (monsterCollider != null) monsterCollider.enabled = false;
     }
 }
