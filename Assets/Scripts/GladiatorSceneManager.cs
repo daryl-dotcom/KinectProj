@@ -25,13 +25,16 @@ public class GladiatorSceneManager : MonoBehaviour
                 vrCamera.transform.localRotation = Quaternion.identity;
             }
 
-            // 3. NEW: Automatically register this Gladiator as Player 2 in the Kinect Manager
-            KinectManager kinect = FindObjectOfType<KinectManager>();
+            // 3. Automatically register this Gladiator as Player 2 in the Kinect Manager
+            KinectManager kinect = FindFirstObjectByType<KinectManager>();
             if (kinect != null)
             {
-                // Notice the capital P, and we are passing "myGladiator" directly!
-                kinect.Player2Avatars.Add(myGladiator); 
-                Debug.Log("--- Gladiator successfully registered to Kinect Player 2! ---");
+                kinect.Player2Avatars.Add(myGladiator);
+                
+                // THE MISSING LINK: Tell the Kinect to refresh its internal tracking lists!
+                kinect.ResetAvatarControllers(); 
+                
+                Debug.Log("--- Gladiator successfully registered to Kinect Player 2 and controllers refreshed! ---");
             }
         }
     }

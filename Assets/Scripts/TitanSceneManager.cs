@@ -20,12 +20,15 @@ public class TitanSceneManager : MonoBehaviour
             GameObject myTitan = PhotonNetwork.Instantiate("Net_Titan", spawnPos, spawnRot);
 
            // 2. Automatically register this Titan as Player 1 in the Kinect Manager
-            KinectManager kinect = FindObjectOfType<KinectManager>();
+            KinectManager kinect = FindFirstObjectByType<KinectManager>();
             if (kinect != null)
             {
-                // Notice the capital P, and we are passing "myTitan" directly!
                 kinect.Player1Avatars.Add(myTitan);
-                Debug.Log("--- Titan successfully registered to Kinect Player 1! ---");
+                
+                // THE MISSING LINK: Tell the Kinect to refresh its internal tracking lists!
+                kinect.ResetAvatarControllers(); 
+                
+                Debug.Log("--- Titan successfully registered to Kinect Player 1 and controllers refreshed! ---");
             }
         }
     }
