@@ -1,10 +1,12 @@
 using UnityEngine;
 using Photon.Pun;
+using System.Collections.Generic; // Required to talk to the Kinect lists
 
 public class GladiatorSceneManager : MonoBehaviour
 {
     [Header("Assign in Inspector")]
-    public Camera vrCamera; // We will plug your Main Camera into this slot
+    public Camera vrCamera; 
+    public Transform spawnPoint; 
 
     void Start()
     {
@@ -13,24 +15,23 @@ public class GladiatorSceneManager : MonoBehaviour
         if (PhotonNetwork.IsConnected)
         {
             // 1. Spawn Player 2
-            GameObject myGladiator = PhotonNetwork.Instantiate("Net_Gladiator", new Vector3(0f, 0f, 3f), Quaternion.identity);
+            GameObject myGladiator = PhotonNetwork.Instantiate("Net_Gladiator", spawnPoint.position, spawnPoint.rotation);
 
-            // 2. Find the character's Head bone using Unity's built-in Animator map
-            Animator gladiatorAnim = myGladiator.GetComponentInChildren<Animator>();
-            
-            if (gladiatorAnim != null && vrCamera != null)
+            // 2. Camera Setup (Stable root follow)
+            if (vrCamera != null)
             {
-                Transform headBone = gladiatorAnim.GetBoneTransform(HumanBodyBones.Head);
+                vrCamera.transform.SetParent(myGladiator.transform);
+                vrCamera.transform.localPosition = new Vector3(0f, 1.6f, 0.2f); 
+                vrCamera.transform.localRotation = Quaternion.identity;
+            }
 
-                if (headBone != null)
-                {
-                    // 3. Snap the camera inside the head
-                    vrCamera.transform.SetParent(headBone);
-                    
-                    // Move it slightly forward so you don't see the inside of your own face mesh
-                    vrCamera.transform.localPosition = new Vector3(0f, 0.1f, 0.1f); 
-                    vrCamera.transform.localRotation = Quaternion.identity;
-                }
+            // 3. NEW: Automatically register this Gladiator as Player 2 in the Kinect Manager
+            KinectManager kinect = FindObjectOfType<KinectManager>();
+            if (kinect != null)
+            {
+                // Notice the capital P, and we are passing "myGladiator" directly!
+                kinect.Player2Avatars.Add(myGladiator); 
+                Debug.Log("--- Gladiator successfully registered to Kinect Player 2! ---");
             }
         }
     }
