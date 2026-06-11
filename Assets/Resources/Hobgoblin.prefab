@@ -40115,6 +40115,8 @@ GameObject:
   - component: {fileID: 1123352343638515539}
   - component: {fileID: 8132835933482971942}
   - component: {fileID: 2845717675176968478}
+  - component: {fileID: -544781411828879875}
+  - component: {fileID: -7098557676719757687}
   m_Layer: 0
   m_Name: Hobgoblin
   m_TagString: Untagged
@@ -40164,11 +40166,6 @@ MonoBehaviour:
   rotationSpeed: 6
   attackDistance: 1.8
   attackCooldown: 1.5
-  idleAnimation: {fileID: 7400000, guid: 8782ded753ca6c64f96a99c89547d88c, type: 2}
-  walkAnimation: {fileID: 7400000, guid: db1ec2c44151bf342bac85cdbec02355, type: 2}
-  attackAnimation: {fileID: 7400000, guid: aa3355c9847032d4fa7cfe92d22ad7d3, type: 2}
-  damageAnimation: {fileID: 7400000, guid: db80c2a4c1f736c418c152053833827c, type: 2}
-  deathAnimation: {fileID: 7400000, guid: e6cb46918487ba149992cd29de55a187, type: 2}
 --- !u!111 &5882584453705589800
 Animation:
   m_ObjectHideFlags: 0
@@ -40235,7 +40232,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
@@ -40253,6 +40250,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AddRunSpeed: 1
   AddWalkSpeed: 0.7
+--- !u!114 &-544781411828879875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5622570854410620968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: -7098557676719757687}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-7098557676719757687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5622570854410620968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonTransformView
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &5682131026297887592
 GameObject:
   m_ObjectHideFlags: 0
