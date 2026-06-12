@@ -511,7 +511,8 @@ MonoBehaviour:
   UseBoneOrientationsConstraint: 0
   UseSelfIntersectionConstraint: 0
   Player1Avatars: []
-  Player2Avatars: []
+  Player2Avatars:
+  - {fileID: 4855337318384679873, guid: 997fed32ea9c8c7468f00b5147a1475d, type: 3}
   Player1CalibrationPose: 0
   Player2CalibrationPose: 0
   Player1Gestures: 
