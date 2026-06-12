@@ -25270,8 +25270,8 @@ Transform:
   m_GameObject: {fileID: 7037530559211045984}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  m_LocalPosition: {x: 486.21628, y: 0, z: 638.0397}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 487.49, y: 1.6427, z: 637.1}
+  m_LocalScale: {x: 0.119688004, y: 0.119688004, z: 0.119688004}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6554580879192441938}
@@ -25299,6 +25299,11 @@ MonoBehaviour:
   rotationSpeed: 6
   attackDistance: 1.8
   attackCooldown: 1.5
+  idleAnimation: idle01
+  walkAnimation: walk
+  attackAnimation: attack01
+  damageAnimation: damage
+  deathAnimation: dead
 --- !u!111 &5797879796585443998
 Animation:
   m_ObjectHideFlags: 0
