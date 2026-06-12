@@ -14,22 +14,31 @@ public class MonsterAI : MonoBehaviourPun
     [Header("Attack")]
     public float attackCooldown = 1.5f;
 
+    [Header("Animation Names")]
+    public string idleAnimation = "idle01";
+    public string walkAnimation = "walk";
+    public string attackAnimation = "attack01";
+    public string damageAnimation = "damage";
+    public string deathAnimation = "dead";
+
     private Transform target;
-    private Animator monsterAnimator; // FIXED: Using modern Animator system
+    private Animation monsterAnimation;
+    private string currentAnimation;
     private float nextAttackTime;
     private bool isDead;
     private bool isStunned;
 
     void Start()
     {
-        monsterAnimator = GetComponent<Animator>();
+        monsterAnimation = GetComponent<Animation>();
         FindGladiator();
+        PlayAnimationNetworked(idleAnimation);
     }
 
     void Update()
     {
-        // Only let the Master Client calculate AI movement to prevent network stuttering
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (!PhotonNetwork.IsMasterClient)
+            return;
 
         if (isDead || isStunned)
             return;
@@ -37,6 +46,7 @@ public class MonsterAI : MonoBehaviourPun
         if (target == null)
         {
             FindGladiator();
+            PlayAnimationNetworked(idleAnimation);
             return;
         }
 
@@ -54,10 +64,8 @@ public class MonsterAI : MonoBehaviourPun
 
     void FindGladiator()
     {
-        // Try to find via Tag
         GameObject gladiator = GameObject.FindGameObjectWithTag(gladiatorTag);
 
-        // Fallback: search by name clone if tag wasn't set correctly in Inspector
         if (gladiator == null)
         {
             gladiator = GameObject.Find("Net_Gladiator(Clone)");
@@ -78,6 +86,7 @@ public class MonsterAI : MonoBehaviourPun
             return;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
+
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
             targetRotation,
@@ -86,66 +95,70 @@ public class MonsterAI : MonoBehaviourPun
 
         transform.position += transform.forward * moveSpeed * Time.deltaTime;
 
-        // FIXED: Safely triggers standard walking states if parameters exist
-        if (monsterAnimator != null)
-        {
-            monsterAnimator.SetBool("IsWalking", true);
-            monsterAnimator.SetBool("Moving", true); // covering common naming asset packs
-        }
+        PlayAnimationNetworked(walkAnimation);
     }
 
     void AttackTarget()
     {
         transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
 
-        if (monsterAnimator != null)
-        {
-            monsterAnimator.SetBool("IsWalking", false);
-            monsterAnimator.SetBool("Moving", false);
-        }
-
         if (Time.time < nextAttackTime)
+        {
+            PlayAnimationNetworked(idleAnimation);
             return;
+        }
 
         nextAttackTime = Time.time + attackCooldown;
-        
-        if (monsterAnimator != null)
-        {
-            monsterAnimator.SetTrigger("Attack");
-        }
+
+        PlayAnimationNetworked(attackAnimation, true);
 
         Debug.LogWarning("--- CHOP! Monster hits Gladiator Player 2! ---");
     }
 
     public void TakeDamage(int damage)
     {
-        if (isDead) return;
-        if (monsterAnimator != null) monsterAnimator.SetTrigger("Hit");
+        if (isDead)
+            return;
+
+        PlayAnimationNetworked(damageAnimation, true);
+
+        // Later you can add health here:
+        // currentHealth -= damage;
+        // if (currentHealth <= 0) Die();
     }
 
     public void Stun(float duration)
     {
-        if (isDead) return;
+        if (isDead)
+            return;
+
         photonView.RPC(nameof(RPC_Stun), RpcTarget.All, duration);
     }
 
     [PunRPC]
     void RPC_Stun(float duration)
     {
-        if (isDead) return;
+        if (isDead)
+            return;
+
         StartCoroutine(StunRoutine(duration));
     }
 
     System.Collections.IEnumerator StunRoutine(float duration)
     {
         isStunned = true;
+        PlayAnimationNetworked(idleAnimation);
+
         yield return new WaitForSeconds(duration);
+
         isStunned = false;
     }
 
     public void Die()
     {
-        if (isDead) return;
+        if (isDead)
+            return;
+
         photonView.RPC(nameof(RPC_Die), RpcTarget.All);
     }
 
@@ -153,9 +166,63 @@ public class MonsterAI : MonoBehaviourPun
     void RPC_Die()
     {
         isDead = true;
-        if (monsterAnimator != null) monsterAnimator.SetTrigger("Die");
+
+        PlayAnimationNetworked(deathAnimation, true);
 
         Collider monsterCollider = GetComponent<Collider>();
-        if (monsterCollider != null) monsterCollider.enabled = false;
+        if (monsterCollider != null)
+            monsterCollider.enabled = false;
+
+            // Later, when you want the wave manager to detect death:
+        // StartCoroutine(DestroyAfterDeathAnimation());
+    }
+
+    System.Collections.IEnumerator DestroyAfterDeathAnimation()
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+    }
+
+    void PlayAnimationNetworked(string animationName, bool forceReplay = false)
+    {
+        if (string.IsNullOrEmpty(animationName))
+            return;
+
+        if (!forceReplay && currentAnimation == animationName)
+            return;
+
+        photonView.RPC(nameof(RPC_PlayAnimation), RpcTarget.All, animationName, forceReplay);
+    }
+
+    [PunRPC]
+    void RPC_PlayAnimation(string animationName, bool forceReplay)
+    {
+        if (monsterAnimation == null)
+            monsterAnimation = GetComponent<Animation>();
+
+        if (monsterAnimation == null)
+            return;
+
+        if (monsterAnimation.GetClip(animationName) == null)
+        {
+            Debug.LogWarning("Missing animation clip: " + animationName + " on " + gameObject.name);
+            return;
+        }
+
+        currentAnimation = animationName;
+
+        if (forceReplay)
+        {
+            monsterAnimation.Stop(animationName);
+            monsterAnimation.Play(animationName);
+        }
+        else
+        {
+            monsterAnimation.CrossFade(animationName, 0.2f);
+        }
     }
 }

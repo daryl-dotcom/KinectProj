@@ -9829,6 +9829,11 @@ MonoBehaviour:
   rotationSpeed: 6
   attackDistance: 1.8
   attackCooldown: 1.5
+  idleAnimation: idle01
+  walkAnimation: walk
+  attackAnimation: attack03
+  damageAnimation: damage
+  deathAnimation: dead
 --- !u!1 &1713801576790772447
 GameObject:
   m_ObjectHideFlags: 0
