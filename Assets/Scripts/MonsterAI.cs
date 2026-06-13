@@ -64,6 +64,7 @@ public class MonsterAI : MonoBehaviourPun
         {
             AttackTarget();
         }
+        Debug.DrawLine(transform.position, target.position, Color.red);
     }
 
     void FindGladiator()
@@ -78,6 +79,15 @@ public class MonsterAI : MonoBehaviourPun
         if (gladiator != null)
         {
             target = gladiator.transform;
+        }
+        if (gladiator != null)
+        {
+            target = gladiator.transform;
+            Debug.Log(gameObject.name + " target found: " + target.name + " at " + target.position);
+        }
+        else
+        {
+            Debug.LogWarning(gameObject.name + " cannot find Gladiator target.");
         }
     }
 
