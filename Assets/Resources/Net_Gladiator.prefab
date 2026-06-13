@@ -7233,6 +7233,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2645925483807361367}
+  - component: {fileID: -5327346843745701848}
   - component: {fileID: -9003215024395067559}
   - component: {fileID: 4264703613804985280}
   - component: {fileID: 156397342446163542}
@@ -7266,7 +7267,7 @@ Transform:
   - {fileID: 5422522404383572939}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-9003215024395067559
+--- !u!114 &-5327346843745701848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7274,6 +7275,26 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4855337318384679873}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c918de25fa844e409ef957ff77e64de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GladiatorArmIKReceiver
+  handWeight: 1
+  elbowWeight: 1
+  smoothSpeed: 12
+  xScale: 1.2
+  yScale: 1.2
+  zScale: 1.2
+  invertX: 0
+  invertZ: 1
+--- !u!114 &-9003215024395067559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4855337318384679873}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 412dbca2a054896498d46c672fe8da2a, type: 3}
   m_Name: 
