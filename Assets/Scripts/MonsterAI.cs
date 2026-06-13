@@ -64,20 +64,22 @@ public class MonsterAI : MonoBehaviourPun
         {
             AttackTarget();
         }
+        Debug.DrawLine(transform.position, target.position, Color.red);
     }
 
     void FindGladiator()
     {
-        GameObject gladiator = GameObject.FindGameObjectWithTag(gladiatorTag);
+        // Safest method: find the object that actually has the GladiatorHealth script attached
+        GladiatorHealth gladiatorHealth = FindFirstObjectByType<GladiatorHealth>();
 
-        if (gladiator == null)
+        if (gladiatorHealth != null)
         {
-            gladiator = GameObject.Find("Net_Gladiator(Clone)");
+            target = gladiatorHealth.transform;
+            Debug.Log(gameObject.name + " target found: " + target.name + " at " + target.position);
         }
-
-        if (gladiator != null)
+        else
         {
-            target = gladiator.transform;
+            Debug.LogWarning(gameObject.name + " cannot find Gladiator target.");
         }
     }
 
