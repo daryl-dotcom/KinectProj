@@ -69,20 +69,12 @@ public class MonsterAI : MonoBehaviourPun
 
     void FindGladiator()
     {
-        GameObject gladiator = GameObject.FindGameObjectWithTag(gladiatorTag);
+        // Safest method: find the object that actually has the GladiatorHealth script attached
+        GladiatorHealth gladiatorHealth = FindFirstObjectByType<GladiatorHealth>();
 
-        if (gladiator == null)
+        if (gladiatorHealth != null)
         {
-            gladiator = GameObject.Find("Net_Gladiator(Clone)");
-        }
-
-        if (gladiator != null)
-        {
-            target = gladiator.transform;
-        }
-        if (gladiator != null)
-        {
-            target = gladiator.transform;
+            target = gladiatorHealth.transform;
             Debug.Log(gameObject.name + " target found: " + target.name + " at " + target.position);
         }
         else
