@@ -40168,7 +40168,7 @@ MonoBehaviour:
   attackCooldown: 1.5
   idleAnimation: idle01
   walkAnimation: walk
-  attackAnimation: attack012
+  attackAnimation: attack02
   damageAnimation: damage
   deathAnimation: dead
 --- !u!111 &5882584453705589800
