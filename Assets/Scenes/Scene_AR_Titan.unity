@@ -503,7 +503,7 @@ MonoBehaviour:
   SensorAngle: 0
   MinUserDistance: 1
   MaxUserDistance: 0
-  DetectClosestUser: 1
+  DetectClosestUser: 0
   IgnoreInferredJoints: 1
   smoothing: 1
   UseBoneOrientationsFilter: 0
