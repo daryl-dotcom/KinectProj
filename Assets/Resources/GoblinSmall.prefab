@@ -25304,6 +25304,7 @@ MonoBehaviour:
   attackAnimation: attack01
   damageAnimation: damage
   deathAnimation: dead
+  attackDamage: 10
 --- !u!111 &5797879796585443998
 Animation:
   m_ObjectHideFlags: 0
@@ -25311,7 +25312,7 @@ Animation:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7037530559211045984}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   m_Animation: {fileID: 7400000, guid: 9ad84fa5eb29a0841b2f3a6bdb615ff0, type: 2}
   m_Animations:

@@ -9,8 +9,8 @@ public class MonsterWaveManager : MonoBehaviourPun
     public Transform[] monsterSpawnPoints;
 
     [Header("Wave Settings")]
-    public float firstWaveDelay = 2f;
-    public float delayBetweenMonsters = 1.5f; // Spaced out time between entry
+    public float firstWaveDelay = 8f;
+    public float delayBetweenMonsters = 5f; // Spaced out time between entry
     public float delayBetweenWaves = 5f;
 
     private List<GameObject> aliveMonsters = new List<GameObject>();
