@@ -41,7 +41,7 @@ public class MonsterAI : MonoBehaviourPun
 
     void Update()
     {
-        if (!PhotonNetwork.IsMasterClient)
+        if (!photonView.IsMine)
             return;
 
         if (isDead || isStunned)
@@ -64,7 +64,6 @@ public class MonsterAI : MonoBehaviourPun
         {
             AttackTarget();
         }
-        Debug.DrawLine(transform.position, target.position, Color.red);
     }
 
     void FindGladiator()

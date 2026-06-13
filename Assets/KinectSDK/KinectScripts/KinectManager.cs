@@ -52,7 +52,7 @@ public class KinectManager : MonoBehaviour
 	public float MaxUserDistance = 0f;
 	
 	// Public Bool to determine whether to detect only the closest user or not
-	public bool DetectClosestUser = true;
+	public bool DetectClosestUser = false;
 	
 	// Public Bool to determine whether to use only the tracked joints (and ignore the inferred ones)
 	public bool IgnoreInferredJoints = true;
