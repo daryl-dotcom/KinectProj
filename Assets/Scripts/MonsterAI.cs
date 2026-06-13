@@ -21,12 +21,16 @@ public class MonsterAI : MonoBehaviourPun
     public string damageAnimation = "damage";
     public string deathAnimation = "dead";
 
+    [Header("Damage")]
+    public int attackDamage = 10;
+
     private Transform target;
     private Animation monsterAnimation;
     private string currentAnimation;
     private float nextAttackTime;
     private bool isDead;
     private bool isStunned;
+    private bool isAttacking;
 
     void Start()
     {
@@ -78,53 +82,66 @@ public class MonsterAI : MonoBehaviourPun
     }
 
     void MoveTowardTarget()
+{
+    if (isAttacking)
+        return;
+
+    Vector3 direction = target.position - transform.position;
+    direction.y = 0f;
+
+    if (direction == Vector3.zero)
+        return;
+
+    Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+    transform.rotation = Quaternion.Slerp(
+        transform.rotation,
+        targetRotation,
+        rotationSpeed * Time.deltaTime
+    );
+
+    transform.position += transform.forward * moveSpeed * Time.deltaTime;
+
+    PlayAnimationNetworked(walkAnimation);
+}
+
+void AttackTarget()
+{
+    transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+
+    if (isAttacking)
+        return;
+
+    if (Time.time < nextAttackTime)
     {
-        Vector3 direction = target.position - transform.position;
-        direction.y = 0f;
-
-        if (direction == Vector3.zero)
-            return;
-
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRotation,
-            rotationSpeed * Time.deltaTime
-        );
-
-        transform.position += transform.forward * moveSpeed * Time.deltaTime;
-
-        PlayAnimationNetworked(walkAnimation);
+        PlayAnimationNetworked(idleAnimation);
+        return;
     }
 
-    void AttackTarget()
+    StartCoroutine(AttackRoutine());
+}
+
+    System.Collections.IEnumerator AttackRoutine()
     {
-        transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
-
-        if (Time.time < nextAttackTime)
-        {
-            PlayAnimationNetworked(idleAnimation);
-            return;
-        }
-
+        isAttacking = true;
         nextAttackTime = Time.time + attackCooldown;
 
         PlayAnimationNetworked(attackAnimation, true);
 
+        yield return new WaitForSeconds(0.4f);
+
+        GladiatorHealth health = target.GetComponent<GladiatorHealth>();
+        if (health != null)
+        {
+            health.TakeDamage(attackDamage);
+        }
+
         Debug.LogWarning("--- CHOP! Monster hits Gladiator Player 2! ---");
-    }
 
-    public void TakeDamage(int damage)
-    {
-        if (isDead)
-            return;
+        yield return new WaitForSeconds(0.6f);
 
-        PlayAnimationNetworked(damageAnimation, true);
-
-        // Later you can add health here:
-        // currentHealth -= damage;
-        // if (currentHealth <= 0) Die();
+        isAttacking = false;
+        PlayAnimationNetworked(idleAnimation);
     }
 
     public void Stun(float duration)
@@ -173,7 +190,7 @@ public class MonsterAI : MonoBehaviourPun
         if (monsterCollider != null)
             monsterCollider.enabled = false;
 
-            // Later, when you want the wave manager to detect death:
+        // Later, when you want the wave manager to detect death:
         // StartCoroutine(DestroyAfterDeathAnimation());
     }
 
