@@ -7232,6 +7232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2645925483807361367}
+  - component: {fileID: -9003215024395067559}
   - component: {fileID: 4264703613804985280}
   - component: {fileID: 156397342446163542}
   - component: {fileID: 7997139997101359160}
@@ -7263,6 +7264,19 @@ Transform:
   - {fileID: 5300435490075913964}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-9003215024395067559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4855337318384679873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412dbca2a054896498d46c672fe8da2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GladiatorKinectNetworkMover
+  smoothSpeed: 8
 --- !u!95 &4264703613804985280
 Animator:
   serializedVersion: 7
