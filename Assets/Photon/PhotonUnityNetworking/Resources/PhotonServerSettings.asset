@@ -43,6 +43,7 @@ MonoBehaviour:
   - RPC_Stun
   - RPC_PlayAnimation
   - RPC_SetKinectMoveOffset
+  - RPC_SetKinectArms
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0
