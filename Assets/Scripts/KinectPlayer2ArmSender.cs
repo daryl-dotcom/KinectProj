@@ -1,13 +1,15 @@
 using UnityEngine;
 using Photon.Pun;
+using ExitGames.Client.Photon;
+using Photon.Realtime;
 
 public class KinectPlayer2ArmSender : MonoBehaviour
 {
-    public string gladiatorTag = "Gladiator";
+    public const byte Player2ArmEventCode = 21;
+
     public float sendRate = 30f;
 
     private KinectManager kinect;
-    private PhotonView gladiatorView;
     private float nextSendTime;
 
     void Start()
@@ -27,11 +29,6 @@ public class KinectPlayer2ArmSender : MonoBehaviour
             return;
 
         nextSendTime = Time.time + (1f / sendRate);
-
-        FindGladiatorView();
-
-        if (gladiatorView == null)
-            return;
 
         uint player2Id = kinect.GetPlayer2ID();
 
@@ -60,27 +57,24 @@ public class KinectPlayer2ArmSender : MonoBehaviour
         Vector3 leftHandOffset = kinect.GetJointPosition(player2Id, handLeft) - shoulderPos;
         Vector3 rightHandOffset = kinect.GetJointPosition(player2Id, handRight) - shoulderPos;
 
-        gladiatorView.RPC(
-            nameof(GladiatorArmIKReceiver.RPC_SetKinectArms),
-            RpcTarget.All,
+        object[] armData =
+        {
             leftElbowOffset,
             rightElbowOffset,
             leftHandOffset,
             rightHandOffset
+        };
+
+        RaiseEventOptions options = new RaiseEventOptions
+        {
+            Receivers = ReceiverGroup.Others
+        };
+
+        PhotonNetwork.RaiseEvent(
+            Player2ArmEventCode,
+            armData,
+            options,
+            SendOptions.SendUnreliable
         );
-    }
-
-    void FindGladiatorView()
-    {
-        if (gladiatorView != null)
-            return;
-
-        GameObject gladiator = GameObject.FindGameObjectWithTag(gladiatorTag);
-
-        if (gladiator == null)
-            gladiator = GameObject.Find("Net_Gladiator(Clone)");
-
-        if (gladiator != null)
-            gladiatorView = gladiator.GetComponent<PhotonView>();
     }
 }

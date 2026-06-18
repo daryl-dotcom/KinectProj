@@ -1,7 +1,9 @@
 using UnityEngine;
 using Photon.Pun;
+using ExitGames.Client.Photon;
+using Photon.Realtime;
 
-public class GladiatorArmIKReceiver : MonoBehaviourPun
+public class GladiatorArmIKReceiver : MonoBehaviourPun, IOnEventCallback
 {
     [Header("IK Weights")]
     public float handWeight = 1f;
@@ -34,6 +36,21 @@ public class GladiatorArmIKReceiver : MonoBehaviourPun
     void Start()
     {
         animator = GetComponent<Animator>();
+
+        if (animator != null)
+        {
+            animator.enabled = true;
+        }
+    }
+
+    void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget(this);
+    }
+
+    void OnDisable()
+    {
+        PhotonNetwork.RemoveCallbackTarget(this);
     }
 
     void Update()
@@ -47,8 +64,28 @@ public class GladiatorArmIKReceiver : MonoBehaviourPun
         currentRightElbowTarget = Vector3.Lerp(currentRightElbowTarget, rightElbowTarget, smoothSpeed * Time.deltaTime);
     }
 
-    [PunRPC]
-    public void RPC_SetKinectArms(
+    public void OnEvent(EventData photonEvent)
+    {
+        if (photonEvent.Code != KinectPlayer2ArmSender.Player2ArmEventCode)
+            return;
+
+        if (!photonView.IsMine)
+            return;
+
+        object[] armData = photonEvent.CustomData as object[];
+
+        if (armData == null || armData.Length < 4)
+            return;
+
+        SetKinectArms(
+            (Vector3)armData[0],
+            (Vector3)armData[1],
+            (Vector3)armData[2],
+            (Vector3)armData[3]
+        );
+    }
+
+    void SetKinectArms(
         Vector3 leftElbowOffset,
         Vector3 rightElbowOffset,
         Vector3 leftHandOffset,
