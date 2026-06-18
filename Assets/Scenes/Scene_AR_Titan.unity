@@ -566,7 +566,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202293453}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9af31db319133d45ab35d384159e4b1, type: 3}
   m_Name: 
@@ -599,12 +599,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202293453}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0cb02a6e0284b14189d17ca5fa8931b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KinectPlayer2ArmSender
-  gladiatorTag: Gladiator
   sendRate: 30
 --- !u!1 &1895296851
 GameObject:
