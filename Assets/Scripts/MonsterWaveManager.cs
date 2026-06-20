@@ -105,7 +105,7 @@ public class MonsterWaveManager : MonoBehaviourPun
         );
 
         // Parent the monster to the spawn point's parent (the Arena) to allow Local Space syncing
-        monster.transform.SetParent(spawnPoint.parent);
+        //monster.transform.SetParent(spawnPoint.parent);
 
         aliveMonsters.Add(monster);
         Debug.Log("Spawned monster: " + monsterPrefabName);
