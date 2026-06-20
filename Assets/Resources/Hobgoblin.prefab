@@ -40134,8 +40134,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: 479.53, y: -0.84636, z: 620.35}
-  m_LocalScale: {x: 0.34455, y: 0.34455, z: 0.34455}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7325477628627197709}
   - {fileID: 793095608933056529}
@@ -40171,6 +40171,7 @@ MonoBehaviour:
   attackAnimation: attack02
   damageAnimation: damage
   deathAnimation: dead
+  attackDamage: 10
 --- !u!111 &5882584453705589800
 Animation:
   m_ObjectHideFlags: 0
