@@ -17,6 +17,11 @@ public class GladiatorSceneManager : MonoBehaviour
             // 1. Spawn Player 2
             GameObject myGladiator = PhotonNetwork.Instantiate("Net_Gladiator", spawnPoint.position, spawnPoint.rotation);
 
+            // 1b. Anchor Gladiator to the marker/spawnPoint, same as Titan
+            myGladiator.transform.SetParent(spawnPoint, false);
+            myGladiator.transform.localPosition = Vector3.zero;
+            myGladiator.transform.localRotation = Quaternion.identity;
+
             // 2. Camera Setup (Stable root follow)
             if (vrCamera != null)
             {
@@ -30,10 +35,7 @@ public class GladiatorSceneManager : MonoBehaviour
             if (kinect != null)
             {
                 kinect.Player2Avatars.Add(myGladiator);
-                
-                // THE MISSING LINK: Tell the Kinect to refresh its internal tracking lists!
-                kinect.ResetAvatarControllers(); 
-                
+                kinect.ResetAvatarControllers();  
                 Debug.Log("--- Gladiator successfully registered to Kinect Player 2 and controllers refreshed! ---");
             }
         }
