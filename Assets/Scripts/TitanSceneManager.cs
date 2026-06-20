@@ -21,6 +21,7 @@ public class TitanSceneManager : MonoBehaviour
         else
         {
             Debug.LogWarning("TitanSceneManager could not find an ObserverBehaviour in parent.");
+            TrySpawnWhenReady();
         }
     }
 
@@ -38,6 +39,18 @@ public class TitanSceneManager : MonoBehaviour
         {
             SpawnTitan();
         }
+    }
+
+    async void TrySpawnWhenReady()
+    {
+        // Wait until Photon is actually connected/in room before instantiating
+        while (!PhotonNetwork.IsConnected || !PhotonNetwork.InRoom)
+        {
+            await System.Threading.Tasks.Task.Yield();
+        }
+
+        if (!hasSpawned)
+            SpawnTitan();
     }
 
     void SpawnTitan()
