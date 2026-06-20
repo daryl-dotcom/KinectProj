@@ -18,9 +18,9 @@ public class GladiatorSceneManager : MonoBehaviour
             GameObject myGladiator = PhotonNetwork.Instantiate("Net_Gladiator", spawnPoint.position, spawnPoint.rotation);
 
             // 1b. Anchor Gladiator to the marker/spawnPoint, same as Titan
-            myGladiator.transform.SetParent(spawnPoint, false);
-            myGladiator.transform.localPosition = Vector3.zero;
-            myGladiator.transform.localRotation = Quaternion.identity;
+            // myGladiator.transform.SetParent(spawnPoint, false);
+            // myGladiator.transform.localPosition = Vector3.zero;
+            // myGladiator.transform.localRotation = Quaternion.identity;
 
             // 2. Camera Setup (Stable root follow)
             if (vrCamera != null)
