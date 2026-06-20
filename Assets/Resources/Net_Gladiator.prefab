@@ -7239,6 +7239,7 @@ GameObject:
   - component: {fileID: 7997139997101359160}
   - component: {fileID: 53174338723102106}
   - component: {fileID: 6097000820744008229}
+  - component: {fileID: 8534447282290042890}
   m_Layer: 0
   m_Name: Net_Gladiator
   m_TagString: Gladiator
@@ -7351,9 +7352,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: 53174338723102106}
+  - {fileID: 8534447282290042890}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -7389,6 +7390,20 @@ MonoBehaviour:
   verticalMovement: 0
   smoothFactor: 5
   offsetRelativeToSensor: 0
+--- !u!114 &8534447282290042890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4855337318384679873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e1ee6b3eca1174cbcd825f53dfeed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArenaRelativePhotonTransform
+  arenaRootName: ArenaRoot
+  smoothSpeed: 12
 --- !u!1 &4899057062038960405
 GameObject:
   m_ObjectHideFlags: 0

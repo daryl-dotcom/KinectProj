@@ -40117,6 +40117,7 @@ GameObject:
   - component: {fileID: 2845717675176968478}
   - component: {fileID: -544781411828879875}
   - component: {fileID: -7098557676719757687}
+  - component: {fileID: 2026617357353370448}
   m_Layer: 0
   m_Name: Hobgoblin
   m_TagString: Untagged
@@ -40134,7 +40135,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: 479.53, y: -0.84636, z: 620.35}
-  m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 0.049999997}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7325477628627197709}
@@ -40273,9 +40274,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: -7098557676719757687}
+  - {fileID: 2026617357353370448}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -40295,6 +40296,20 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 0
+--- !u!114 &2026617357353370448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5622570854410620968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e1ee6b3eca1174cbcd825f53dfeed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArenaRelativePhotonTransform
+  arenaRootName: ArenaRoot
+  smoothSpeed: 12
 --- !u!1 &5682131026297887592
 GameObject:
   m_ObjectHideFlags: 0
