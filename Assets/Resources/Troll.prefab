@@ -9659,6 +9659,7 @@ GameObject:
   - component: {fileID: 3806672505328459624}
   - component: {fileID: -7292110743570159885}
   - component: {fileID: -5739604337399511728}
+  - component: {fileID: 3021779847203935839}
   m_Layer: 0
   m_Name: Troll
   m_TagString: Untagged
@@ -9790,9 +9791,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: -7292110743570159885}
+  - {fileID: 3021779847203935839}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -9835,6 +9836,20 @@ MonoBehaviour:
   damageAnimation: damage
   deathAnimation: dead
   attackDamage: 10
+--- !u!114 &3021779847203935839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688660093266772141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e1ee6b3eca1174cbcd825f53dfeed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArenaRelativePhotonTransform
+  arenaRootName: ArenaRoot
+  smoothSpeed: 12
 --- !u!1 &1713801576790772447
 GameObject:
   m_ObjectHideFlags: 0
