@@ -781,6 +781,7 @@ GameObject:
   - component: {fileID: 7849672776828789175}
   - component: {fileID: 5501448207480823905}
   - component: {fileID: 3721308584280516597}
+  - component: {fileID: 5573387532992181495}
   m_Layer: 0
   m_Name: Net_Titan
   m_TagString: Untagged
@@ -797,8 +798,8 @@ Transform:
   m_GameObject: {fileID: 3491825974351385180}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4268464, y: 0.00000012040607, z: -0.3905821}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6389156432680021296}
@@ -844,9 +845,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: 5501448207480823905}
+  - {fileID: 5573387532992181495}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -865,7 +866,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!114 &3721308584280516597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,6 +883,20 @@ MonoBehaviour:
   verticalMovement: 0
   smoothFactor: 5
   offsetRelativeToSensor: 0
+--- !u!114 &5573387532992181495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3491825974351385180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e1ee6b3eca1174cbcd825f53dfeed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArenaRelativePhotonTransform
+  arenaRootName: ArenaRoot
+  smoothSpeed: 12
 --- !u!1 &3562325646588852875
 GameObject:
   m_ObjectHideFlags: 0
